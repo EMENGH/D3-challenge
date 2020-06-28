@@ -33,19 +33,23 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
     // Step 1: Parse Data/Cast as numbers
     // ==============================
     smokeAgeData.forEach(function(data) {
-        data.smokes = +data.smokes;
         data.age = +data.age;
+        data.smokes = +data.smokes;
     });
   
       // Step 2: Create scale functions
       // ==============================
       var xLinearScale = d3.scaleLinear()
-        .domain([51, d3.max(smokeAgeData, d => d.smokes)])
+        .domain([29, d3.max(smokeAgeData, d => d.age)])
         .range([0, chartWidth]);
   
       var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(smokeAgeData, d => d.age)])
+        .domain([8, d3.max(smokeAgeData, d => d.smokes)])
         .range([chartHeight, 0]);
+
+        var zLinearScale = d3.scaleLinear()
+        .domain([5, d3.max(smokeAgeData, d => d.abbr)])
+        .range([chartHeight, 0]);    
   
       // Step 3: Create axis functions
       // ==============================
@@ -67,8 +71,9 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
       .data(smokeAgeData)
       .enter()
       .append("circle")
-      .attr("cx", d => xLinearScale(d.smokes))
-      .attr("cy", d => yLinearScale(d.age))
+      .attr("cx", d => xLinearScale(d.age))
+      .attr("cy", d => yLinearScale(d.smokes))
+      .attr("cz", d => zLinearScale(d.abbr))
       .attr("r", "15")
       .attr("fill", "pink")
       .attr("opacity", ".5");
@@ -79,7 +84,7 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
         .attr("class", "tooltip")
         .offset([80, -60])
         .html(function(d) {
-          return (`${d.rockband}<br>Hair length: ${d.smokes}<br>Hits: ${d.age}`);
+          return (`${d.rockband}<br>Age: ${d.age}<br>Smokes: ${d.smokes}`);
         });
   
       // Step 7: Create tooltip in the chart
@@ -103,10 +108,10 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .attr("class", "axisText")
-        .text("Number of Billboard 100 Hits");
+        .text("smokes / Age comparison");
   
       chartGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top + 30})`)
         .attr("class", "axisText")
         .text("Hair Metal Band Hair Length (inches)");
     }).catch(function(error) {
