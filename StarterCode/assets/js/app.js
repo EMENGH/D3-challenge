@@ -63,8 +63,7 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
     
       .attr("r", "14")
       .attr("fill", "maroon")    
-      .attr("border-color", "white")
-      .attr("opacity", ".4");
+      .attr("opacity", ".9");
   
     // Step 6: Initialize tool tip
     var toolTip = d3.tip()
@@ -105,7 +104,7 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
       .attr("font-family", "sans-serif")
       .attr("font-size", "11px")
       .attr("text-anchor", "middle")
-      .attr("fill", "black");
+      .attr("fill", "white");
         
     // Specify labels for both axels
     chartGroup.append("text")
