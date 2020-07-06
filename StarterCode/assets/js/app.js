@@ -114,12 +114,12 @@ d3.csv("assets/data/data.csv").then(function(smokeAgeData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("id", "axisText")
-      .text("Smokes");
+      .text("Smokes(%)");
   
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("id", "axisText")
-      .text("Age");
+      .text("Age(median)");
     }).catch(function(error) {
           console.log(error);
 });
